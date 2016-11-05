@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  
+                xmlns:h="http://java.sun.com/jsf/html"  
+                xmlns:f="http://java.sun.com/jsf/core"  
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" template="/templates/default/main.xhtml">
+    <ui:define name="content">                        
+        <h1 class="page-header "> <i class="fa fa-headphones"></i> Albumy</h1>
+        <h:form styleClass="list-group">
+
+
+            <div class="table-responsive">
+                <h:dataTable var="Album" value="#{AlbumBean.allAlbums}" styleClass="table-responsive">
+
+                    <h:column>
+                        <f:facet name="header">Okładka</f:facet>
+                        <img src="#{Album.logo}" alt="#{Album.title} + okladka" width="100" height="100"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Title</f:facet>
+                        <h:outputText value="#{Album.title}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Artist</f:facet>
+                        <h:outputText value="#{Album.artist} "/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Genre</f:facet>
+                        <h:outputText value="#{Album.genre} "/>
+                    </h:column>
+                    <h:column>
+                        <h:commandButton value="Usun" action="#{AlbumBean.usun()}" actionListener="#{AlbumBean.albumListener()}" styleClass="btn btn-default">
+                            <f:param name="albumID" value="#{Album.id}"/>
+                        </h:commandButton>
+                    </h:column>
+                    
+                    <h:column>
+                        <h:commandButton value="Edytuj" action="#{AlbumBean.zaladujDoEdycji()}" actionListener="#{AlbumBean.albumListener()}" styleClass="btn btn-default">
+                            <f:param name="albumID" value="#{Album.id}"/>
+                        </h:commandButton>
+                    </h:column>
+                    
+                </h:dataTable>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>        
+

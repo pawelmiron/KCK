@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  
+                xmlns:h="http://java.sun.com/jsf/html"  
+                xmlns:f="http://java.sun.com/jsf/core"  
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" template="/templates/default/main.xhtml">
+    <ui:define name="content">                        
+        <h1 class="page-header "> <i class="fa fa-headphones"></i> Piosenki</h1>
+        <h:form styleClass="list-group">
+
+
+            <div class="table-responsive">
+                <h:dataTable var="Song" value="#{SongBean.allSongs}" styleClass="table-responsive">
+
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                        <h:outputText value="#{Song.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Title</f:facet>
+                        <h:outputText value="#{Song.title} "/>
+                    </h:column>
+                    
+                     <h:column>
+                        <f:facet name="header">Album</f:facet>
+                        <h:outputText value="#{Song.albumId.title} "/>
+                    </h:column>
+                    
+                    <h:column>
+                        <h:commandButton value="Usun" action="#{SongBean.usun()}" actionListener="#{SongBean.songListener()}" styleClass="btn btn-default">
+                            <f:param name="songID" value="#{Song.id}"/>
+                        </h:commandButton>
+                    </h:column>
+                    
+                    <h:column>
+                        <h:commandButton value="Edytuj" action="#{SongBean.zaladujDoEdycji()}" actionListener="#{SongBean.songListener()}" styleClass="btn btn-default">
+                            <f:param name="songID" value="#{Song.id}"/>
+                        </h:commandButton>
+                    </h:column>
+                    
+                </h:dataTable>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>        
+
