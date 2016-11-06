@@ -6,9 +6,12 @@
 package com.pawel.miron.controllers;
 
 import com.pawel.miron.config.DBManager;
-import com.pawel.miron.enitity.Album;
 import com.pawel.miron.enitity.Song;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Set;
 import javax.faces.bean.SessionScoped;
@@ -16,9 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.servlet.http.Part;
+import java.util.Scanner;
+import javazoom.jl.player.advanced.AdvancedPlayer;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import javazoom.jl.decoder.JavaLayerException;
 
 /**
  *
@@ -31,6 +38,39 @@ public class SongBean implements Serializable {
     private Song song = new Song();
     @ManagedProperty(value = "#{AlbumBean}")
     private AlbumBean albumBean;
+
+    private Part file; // +getter+setter
+
+    public void save() {
+        try (InputStream input = file.getInputStream()) {
+            Files.copy(input, new File("C:/Users/Pawel/Desktop/mavenproject2/src/main/resources/music", file.getSubmittedFileName()).toPath());
+            song.setTitle("C:/Users/Pawel/Desktop/mavenproject2/src/main/resources/music/" + file.getSubmittedFileName());
+        } catch (IOException e) {
+            System.out.println("Zapisywanie nie powiodlo się");
+        }
+    }
+
+    public void play(String in) {
+        Scanner read = new Scanner(System.in);
+        System.out.println("Podaj ścieżkę do pliku Mp3");
+        String filepath = in; /// odczytujemy wpisaną ścieżkę
+        try {
+            FileInputStream fis = new FileInputStream(filepath);
+            AdvancedPlayer advancedPlayer = new AdvancedPlayer(fis);
+            System.out.println("Odtwarzanie pliku " + filepath);
+            advancedPlayer.play(500, 1000);
+        } catch (FileNotFoundException | JavaLayerException exc) {
+            System.out.println("Nie można otworzyc pliku MP3");
+        }
+    }
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
+    }
 
     public AlbumBean getAlbumBean() {
         return albumBean;
@@ -60,6 +100,7 @@ public class SongBean implements Serializable {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
         song.setId(null);
+        save();
         em.persist(song);
         em.getTransaction().commit();
         this.dodajInfo("Dodano utwor!");
@@ -76,14 +117,14 @@ public class SongBean implements Serializable {
     }
 
     public Set<Song> getAlbumSongs() {
-       //EntityManager em = DBManager.getManager().createEntityManager();
-       // Query query = em.createNamedQuery("Song.findByAlbum");
-       // Integer id = albumBean.getAlbum().getId();
-       // query.setParameter("id", id.toString());
-       // List list = query.getResultList();
-       // em.close();
-       // return list;
-       return albumBean.getAlbum().getSongSet();
+        //EntityManager em = DBManager.getManager().createEntityManager();
+        // Query query = em.createNamedQuery("Song.findByAlbum");
+        // Integer id = albumBean.getAlbum().getId();
+        // query.setParameter("id", id.toString());
+        // List list = query.getResultList();
+        // em.close();
+        // return list;
+        return albumBean.getAlbum().getSongSet();
     }
 
     public String zaladujDoEdycji() {

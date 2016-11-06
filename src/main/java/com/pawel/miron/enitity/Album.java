@@ -139,5 +139,5 @@ public class Album implements Serializable {
     public String toString() {
         return "com.pawel.miron.enitity.Album[ id=" + id + " ]";
     }
-    
+
 }

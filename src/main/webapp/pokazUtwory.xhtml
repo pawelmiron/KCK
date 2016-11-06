@@ -37,10 +37,14 @@
                         </h:commandButton>
                     </h:column>
 
+                    <h:column>
+                        <h:commandButton value="Play" action="#{SongBean.play(Song.title)}" styleClass="btn btn-default"></h:commandButton>
+                    </h:column>
+
+
                 </h:dataTable>
             </div>
         </h:form>
 
     </ui:define>
 </ui:composition>        
-
