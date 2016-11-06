@@ -18,6 +18,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 /**
@@ -29,7 +31,7 @@ import javax.persistence.EntityManager;
 public class AlbumBean implements Serializable {
 
     private Album album = new Album();
-   
+
     public AlbumBean() {
         System.out.println("Stworzono AlbumBean");
     }
@@ -52,6 +54,13 @@ public class AlbumBean implements Serializable {
         em.close();
         this.album = new Album();
         return "pokazAlbumy.xhtml";
+    }
+
+    public String pokazPiosenki() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        this.album = em.find(Album.class, album.getId());
+        em.close();
+        return "pokazUtwory";
     }
 
     public List<Album> getAllAlbums() {
@@ -77,7 +86,6 @@ public class AlbumBean implements Serializable {
         em.getTransaction().commit();
         em.close();
         this.dodajInfo("Usunieto album");
-
         return null;
     }
 

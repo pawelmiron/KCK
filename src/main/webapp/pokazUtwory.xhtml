@@ -9,7 +9,7 @@
 
 
             <div class="table-responsive">
-                <h:dataTable var="Song" value="#{SongBean.allSongs}" styleClass="table-responsive">
+                <h:dataTable var="Song" value="#{SongBean.albumSongs}" styleClass="table-responsive">
 
                     <h:column>
                         <f:facet name="header">Id</f:facet>
@@ -19,24 +19,24 @@
                         <f:facet name="header">Title</f:facet>
                         <h:outputText value="#{Song.title} "/>
                     </h:column>
-                    
-                     <h:column>
+
+                    <h:column>
                         <f:facet name="header">Album</f:facet>
                         <h:outputText value="#{Song.albumId.title} "/>
                     </h:column>
-                    
+
                     <h:column>
                         <h:commandButton value="Usun" action="#{SongBean.usun()}" actionListener="#{SongBean.songListener()}" styleClass="btn btn-default">
                             <f:param name="songID" value="#{Song.id}"/>
                         </h:commandButton>
                     </h:column>
-                    
+
                     <h:column>
                         <h:commandButton value="Edytuj" action="#{SongBean.zaladujDoEdycji()}" actionListener="#{SongBean.songListener()}" styleClass="btn btn-default">
                             <f:param name="songID" value="#{Song.id}"/>
                         </h:commandButton>
                     </h:column>
-                    
+
                 </h:dataTable>
             </div>
         </h:form>

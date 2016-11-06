@@ -32,13 +32,19 @@
                             <f:param name="albumID" value="#{Album.id}"/>
                         </h:commandButton>
                     </h:column>
-                    
+
                     <h:column>
                         <h:commandButton value="Edytuj" action="#{AlbumBean.zaladujDoEdycji()}" actionListener="#{AlbumBean.albumListener()}" styleClass="btn btn-default">
                             <f:param name="albumID" value="#{Album.id}"/>
                         </h:commandButton>
                     </h:column>
-                    
+                    <h:column>
+                        <h:commandButton value="Piosenki" action="#{AlbumBean.pokazPiosenki()}" actionListener="#{AlbumBean.albumListener()}" styleClass="btn btn-default">
+                            <f:param name="albumID" value="#{Album.id}"/>
+                        </h:commandButton>
+                    </h:column>
+
+
                 </h:dataTable>
             </div>
         </h:form>

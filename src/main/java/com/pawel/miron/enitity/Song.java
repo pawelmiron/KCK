@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Song.findAll", query = "SELECT s FROM Song s")
     , @NamedQuery(name = "Song.findById", query = "SELECT s FROM Song s WHERE s.id = :id")
+    , @NamedQuery(name = "Song.findByAlbum", query = "SELECT s FROM Song s WHERE s.albumId = :id")
     , @NamedQuery(name = "Song.findByTitle", query = "SELECT s FROM Song s WHERE s.title = :title")})
 public class Song implements Serializable {
 
