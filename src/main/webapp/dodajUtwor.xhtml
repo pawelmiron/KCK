@@ -7,10 +7,7 @@
         <h1 class="page-header "> <i class="fa fa-plus"></i> Dodaj utwór</h1>
 
 
-        <h:form enctype="multipart/form-data" styleClass="form-group"><h:outputText id="komunikat"/>
-
-
-
+        <h:form styleClass="form-group"><h:outputText id="komunikat"/>
             <div class="form-group">
                 <h:outputLabel value="Nazwa albumu" styleClass="control-label col-sm-2"/>
                 <div class="col-sm-10"><h:selectOneMenu id="albumName" value="#{SongBean.song.albumId}" required="true" styleClass="form-control">
@@ -18,9 +15,9 @@
                         <f:selectItems value="#{AlbumBean.allAlbums}" var="c" itemLabel="#{c.title}" itemValue="#{c}"/>
                     </h:selectOneMenu></div>
             </div>
-            <div>
-                <h:outputLabel value="Utwor" styleClass="control-label col-sm-2"/>
-                <div class="col-sm-10"><h:inputFile value="#{SongBean.file}" styleClass="form-control"></h:inputFile></div> 
+            <div class="form-group">
+                <h:outputLabel value="Nazwa Piosenki" styleClass="control-label col-sm-2"/>
+                <div class="col-sm-10"><h:inputText value="#{SongBean.song.title}" required="true" styleClass="form-control"/></div>
             </div>
 
             <div class="form-group">
